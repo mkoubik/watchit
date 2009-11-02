@@ -49,9 +49,9 @@ public final class SqliteBackend implements IBackend {
      * Lazy getter.
      * @return JDBC connection wrapper.
      */
-    private Database getDatabase() {
+    private Database getDatabase() throws NotConnectedException {
         if (this.db==null) {
-            this.db = new Database(connection);
+            this.db = new Database(this.getConnection());
         }
         return this.db;
     }
