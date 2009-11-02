@@ -3,7 +3,7 @@
  * 
  */
 
-package backend.sqlite;
+package backend.sqlite.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
