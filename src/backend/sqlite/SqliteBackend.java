@@ -6,6 +6,7 @@
 package backend.sqlite;
 
 import backend.IBackend;
+import backend.sqlite.exceptions.NotConnectedException;
 import exceptions.BackendException;
 import java.io.File;
 import java.sql.Connection;
@@ -23,6 +24,39 @@ public final class SqliteBackend implements IBackend {
     private static String DATABASE_FILENAME = ".watchit.db";
 
     /**
+     * JDBC database connection;
+     */
+    private Connection connection = null;
+
+    /**
+     * JDBC connection wrapper;
+     */
+    private Database db = null;
+
+    /**
+     * Private getter for connection (only for validation).
+     * @return JDBC database connection.
+     * @throws NotConnectedException
+     */
+    private Connection getConnection() throws NotConnectedException {
+        if (this.connection==null) {
+            throw new NotConnectedException("Backend is not connected to the database.");
+        }
+        return this.connection;
+    }
+
+    /**
+     * Lazy getter.
+     * @return JDBC connection wrapper.
+     */
+    private Database getDatabase() {
+        if (this.db==null) {
+            this.db = new Database(connection);
+        }
+        return this.db;
+    }
+
+    /**
      * Checks and initializes sqlite database (file).
      * @throws BackendException
      */
@@ -30,10 +64,9 @@ public final class SqliteBackend implements IBackend {
         String path = System.getProperty("user.home")+File.separator+DATABASE_FILENAME;
         try {
             Class.forName("org.sqlite.JDBC");
-            Connection c = DriverManager.getConnection("jdbc:sqlite:"+path);
+            this.connection = DriverManager.getConnection("jdbc:sqlite:"+path);
         } catch (Exception ex) {
             throw new BackendException(ex.getMessage());
         }
     }
-
 }
