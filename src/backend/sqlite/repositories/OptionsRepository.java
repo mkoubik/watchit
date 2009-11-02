@@ -6,7 +6,7 @@
 package backend.sqlite.repositories;
 
 import backend.IOptionsRepository;
-import backend.sqlite.Database;
+import backend.sqlite.db.Database;
 
 /**
  * Repository for options/settings persistency into sqlite database.

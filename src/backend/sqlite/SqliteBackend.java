@@ -5,6 +5,7 @@
 
 package backend.sqlite;
 
+import backend.sqlite.db.Database;
 import backend.IBackend;
 import backend.IOptionsRepository;
 import backend.sqlite.exceptions.NotConnectedException;
