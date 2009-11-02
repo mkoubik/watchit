@@ -18,4 +18,10 @@ public interface IBackend {
      * @throws BackendException
      */
     public void initialize() throws BackendException;
+
+    /**
+     * Get repository of options/settings persistency.
+     * @return repository
+     */
+    public IOptionsRepository getOptionsRepository() throws BackendException;
 }

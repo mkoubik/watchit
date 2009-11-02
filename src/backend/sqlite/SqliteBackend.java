@@ -6,7 +6,9 @@
 package backend.sqlite;
 
 import backend.IBackend;
+import backend.IOptionsRepository;
 import backend.sqlite.exceptions.NotConnectedException;
+import backend.sqlite.repositories.OptionsRepository;
 import exceptions.BackendException;
 import java.io.File;
 import java.sql.Connection;
@@ -68,5 +70,9 @@ public final class SqliteBackend implements IBackend {
         } catch (Exception ex) {
             throw new BackendException(ex.getMessage());
         }
+    }
+
+    public IOptionsRepository getOptionsRepository() throws BackendException {
+        return new OptionsRepository(this.getDatabase());
     }
 }
