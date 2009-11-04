@@ -24,6 +24,15 @@ public class Database {
     }
 
     /**
+     * Escapes string for sqlite database.
+     * @param str String to be escaped.
+     * @return Escaped string.
+     */
+    public static String escapeString(String str) {
+        return str.replaceAll("\"", "\"\"");
+    }
+
+    /**
      * Wrapper.
      * @return JDBC statement
      * @throws SQLException
@@ -61,6 +70,16 @@ public class Database {
      */
     public boolean execute(String sql) throws SQLException {
         return this.connection.createStatement().execute(sql);
+    }
+
+    /**
+     * Wrapper for executeUpdate.
+     * @param sql SQL statement.
+     * @return int Count of affected rows, or 0.
+     * @throws SQLException
+     */
+    public int executeUpdate(String sql) throws SQLException {
+        return this.connection.createStatement().executeUpdate(sql);
     }
 
 }
