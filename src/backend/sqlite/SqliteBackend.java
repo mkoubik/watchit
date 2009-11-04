@@ -6,6 +6,7 @@
 package backend.sqlite;
 
 import backend.sqlite.db.Database;
+import backend.sqlite.db.structure.*;
 import backend.IBackend;
 import backend.IOptionsRepository;
 import backend.sqlite.exceptions.NotConnectedException;
@@ -14,6 +15,7 @@ import exceptions.BackendException;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * Data-storage backend based on sqlite3 database.
@@ -59,6 +61,14 @@ public final class SqliteBackend implements IBackend {
         return this.db;
     }
 
+    private void checkDatabase() throws NotConnectedException, SQLException {
+        DatabaseStructure ds = new DatabaseStructure();
+
+        ds.addItem(new OptionsStructure(this.getDatabase()));
+
+        ds.checkAndCreate();
+    }
+
     /**
      * Checks and initializes sqlite database (file).
      * @throws BackendException
@@ -68,6 +78,7 @@ public final class SqliteBackend implements IBackend {
         try {
             Class.forName("org.sqlite.JDBC");
             this.connection = DriverManager.getConnection("jdbc:sqlite:"+path);
+            this.checkDatabase();
         } catch (Exception ex) {
             throw new BackendException(ex.getMessage());
         }
