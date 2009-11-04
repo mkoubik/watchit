@@ -42,9 +42,25 @@ public class Database {
         return this.connection.prepareStatement(sql);
     }
 
+    /**
+     * Executes SQL query, that returns a result set.
+     * @param sql SQL query.
+     * @return EnhancedResultSet.
+     * @throws SQLException
+     */
     public EnhancedReslutSet executeQuery(String sql) throws SQLException {
         ResultSet rs = this.connection.createStatement().executeQuery(sql);
         return new EnhancedReslutSet(rs);
+    }
+
+    /**
+     * Executes general SQL command.
+     * @param sql SQL command.
+     * @return
+     * @throws SQLException
+     */
+    public boolean execute(String sql) throws SQLException {
+        return this.connection.createStatement().execute(sql);
     }
 
 }
