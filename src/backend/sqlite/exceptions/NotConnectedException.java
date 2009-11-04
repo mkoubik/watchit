@@ -27,4 +27,12 @@ public class NotConnectedException extends BackendException {
     public NotConnectedException(String msg) {
         super(msg);
     }
+
+    /**
+     * Constructs an instance of <code>NotConnectedException</code> with the specified cause.
+     * @param cause the cause.
+     */
+    public NotConnectedException(Throwable cause) {
+        super(cause);
+    }
 }

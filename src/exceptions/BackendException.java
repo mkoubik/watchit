@@ -25,4 +25,12 @@ public class BackendException extends Exception {
     public BackendException(String msg) {
         super(msg);
     }
+
+    /**
+     * Constructs an instance of <code>BackendException</code> with the specified cause.
+     * @param cause the cause.
+     */
+    public BackendException(Throwable cause) {
+        super(cause);
+    }
 }

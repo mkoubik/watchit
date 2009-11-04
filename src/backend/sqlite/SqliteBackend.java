@@ -80,7 +80,7 @@ public final class SqliteBackend implements IBackend {
             this.connection = DriverManager.getConnection("jdbc:sqlite:"+path);
             this.checkDatabase();
         } catch (Exception ex) {
-            throw new BackendException(ex.getMessage());
+            throw new BackendException(ex);
         }
     }
 
