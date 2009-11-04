@@ -16,8 +16,6 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Data-storage backend based on sqlite3 database.
@@ -39,6 +37,8 @@ public final class SqliteBackend implements IBackend {
      * JDBC connection wrapper;
      */
     private Database db = null;
+
+    private OptionsRepository optionsRepository = null;
 
     /**
      * Private getter for connection (only for validation).
@@ -99,6 +99,9 @@ public final class SqliteBackend implements IBackend {
     }
 
     public IOptionsRepository getOptionsRepository() throws BackendException {
-        return new OptionsRepository(this.getDatabase());
+        if (optionsRepository==null) {
+            optionsRepository = new OptionsRepository(this.getDatabase());
+        }
+        return optionsRepository;
     }
 }
