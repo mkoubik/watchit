@@ -59,9 +59,9 @@ public class EnhancedReslutSet {
      * Sets cursor before the first row.
      * @throws SQLException
      */
-    public void reset() throws SQLException {
+    /*public void reset() throws SQLException {
         rs.beforeFirst();
-    }
+    }*/
 
     /**
      * Fetches one row.
@@ -85,7 +85,7 @@ public class EnhancedReslutSet {
      * @throws SQLException
      */
     public List<Map<String, String>> fetchAll() throws SQLException {
-        this.reset();
+        //this.reset();
         List<Map<String, String>> data = new ArrayList<Map<String, String>>();
         while (rs.next()) {
             Map<String, String> row = this.fetch();
