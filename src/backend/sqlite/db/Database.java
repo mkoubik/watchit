@@ -7,6 +7,7 @@ package backend.sqlite.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -39,6 +40,11 @@ public class Database {
      */
     public PreparedStatement prepareStatement(String sql) throws SQLException {
         return this.connection.prepareStatement(sql);
+    }
+
+    public EnhancedReslutSet executeQuery(String sql) throws SQLException {
+        ResultSet rs = this.connection.createStatement().executeQuery(sql);
+        return new EnhancedReslutSet(rs);
     }
 
 }
