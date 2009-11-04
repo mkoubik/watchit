@@ -16,6 +16,8 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Data-storage backend based on sqlite3 database.
@@ -79,6 +81,18 @@ public final class SqliteBackend implements IBackend {
             Class.forName("org.sqlite.JDBC");
             this.connection = DriverManager.getConnection("jdbc:sqlite:"+path);
             this.checkDatabase();
+        } catch (Exception ex) {
+            throw new BackendException(ex);
+        }
+    }
+
+    /**
+     * Closes database connection.
+     * @throws BackendException
+     */
+    public void shutdown() throws BackendException {
+        try {
+            this.getConnection().close();
         } catch (Exception ex) {
             throw new BackendException(ex);
         }

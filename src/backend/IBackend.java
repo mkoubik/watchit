@@ -20,6 +20,12 @@ public interface IBackend {
     public void initialize() throws BackendException;
 
     /**
+     * Called by the application to shutdown the backend.
+     * @throws BackendException
+     */
+    public void shutdown() throws BackendException;
+
+    /**
      * Get repository of options/settings persistency.
      * @return repository
      */
